@@ -6,12 +6,12 @@ export function AdSpace() {
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
 
-  // Adsterra configuration
+  // Adsterra configuration - CORRECTED Zone ID from panel
   const adConfig = {
-    containerId: 'container-781f85236894765a79a75ac7e8950eca',
+    containerId: 'container-781f8523b894765a79a75ac7e8950eca',
     scriptUrls: [
-      '//pl27377848.profitableratecpm.com/781f85236894765a79a75ac7e8950eca/invoke.js',
-      'https://pl27377848.profitableratecpm.com/781f85236894765a79a75ac7e8950eca/invoke.js'
+      '//pl27377848.profitableratecpm.com/781f8523b894765a79a75ac7e8950eca/invoke.js',
+      'https://pl27377848.profitableratecpm.com/781f8523b894765a79a75ac7e8950eca/invoke.js'
     ]
   };
 
