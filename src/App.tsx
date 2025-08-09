@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Zap } from 'lucide-react';
 import { VoiceRecorder } from './components/VoiceRecorder';
