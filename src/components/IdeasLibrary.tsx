@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Lightbulb, 
@@ -43,6 +43,11 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording, onGenerateSchema 
   const [editTitle, setEditTitle] = useState('');
 
   const filteredIdeas = searchQuery ? searchIdeas(searchQuery) : ideas;
+
+  // Debug logging
+  useEffect(() => {
+    console.log('IdeasLibrary - Ideas cambiaron:', ideas.length, 'total');
+  }, [ideas]);
 
   const handleCreateIdea = () => {
     if (newIdeaTitle.trim()) {

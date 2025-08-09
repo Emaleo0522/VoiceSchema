@@ -17,7 +17,11 @@ export function useIdeas() {
       isCompleted: false,
     };
 
-    setIdeas(prev => [newIdea, ...prev]);
+    setIdeas(prev => {
+      const updated = [newIdea, ...prev];
+      console.log('Ideas actualizadas:', updated.length, 'ideas totales');
+      return updated;
+    });
     return newIdea;
   };
 

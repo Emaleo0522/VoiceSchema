@@ -99,7 +99,8 @@ ${schema.finalPrompt}
       onSaveToIdea(selectedIdeaId, schema);
     } else if (saveMode === 'new') {
       if (!newIdeaTitle.trim() || !onCreateIdea) return;
-      onCreateIdea(newIdeaTitle.trim(), schema, transcriptSegments);
+      const newIdea = onCreateIdea(newIdeaTitle.trim(), schema, transcriptSegments);
+      console.log('Nueva idea creada:', newIdea);
     }
     
     setShowSaveModal(false);
