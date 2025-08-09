@@ -7,12 +7,17 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { ApiKeyInput } from './components/ApiKeyInput';
 import { useTheme } from './hooks/useTheme';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { TranscriptSegment } from './types';
+import { useIdeas } from './hooks/useIdeas';
+import { TranscriptSegment, IdeaItem } from './types';
+import { IdeasLibrary } from './components/IdeasLibrary';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   const [apiKey, setApiKey] = useLocalStorage<string>('gemini-api-key', '');
   const [transcriptSegments, setTranscriptSegments] = useState<TranscriptSegment[]>([]);
+  const [selectedIdea, setSelectedIdea] = useState<IdeaItem | null>(null);
+  const [recordingForIdea, setRecordingForIdea] = useState<string | null>(null);
+  const { addTranscriptToIdea } = useIdeas();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 
@@ -86,10 +91,10 @@ function App() {
       </header>
 
       {/* Main content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 lg:gap-8">
           {/* Columna principal */}
-          <div className="lg:col-span-2 space-y-6 lg:space-y-8">
+          <div className="xl:col-span-2 space-y-6 lg:space-y-8">
             {/* API Key Configuration */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
@@ -106,15 +111,45 @@ function App() {
               transition={{ delay: 0.2 }}
               className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/30 shadow-xl"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-red-500 rounded-lg">
-                  <Zap className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-red-500 rounded-lg">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">
+                      Grabación de Voz
+                    </h2>
+                    {selectedIdea && (
+                      <p className="text-sm text-blue-400">
+                        💡 Trabajando en: {selectedIdea.title}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">
-                  Grabación de Voz
-                </h2>
+                {selectedIdea && (
+                  <button
+                    onClick={() => {
+                      setSelectedIdea(null);
+                      setTranscriptSegments([]);
+                      setRecordingForIdea(null);
+                    }}
+                    className="px-3 py-1 text-xs bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  >
+                    Nueva sesión
+                  </button>
+                )}
               </div>
-              <VoiceRecorder onTranscriptChange={setTranscriptSegments} />
+              <VoiceRecorder 
+                onTranscriptChange={(segments) => {
+                  setTranscriptSegments(segments);
+                  if (recordingForIdea) {
+                    addTranscriptToIdea(recordingForIdea, segments);
+                  }
+                }}
+                currentIdeaId={recordingForIdea}
+                initialSegments={selectedIdea?.transcriptSegments}
+              />
             </motion.section>
 
             {/* Schema Generator */}
@@ -133,13 +168,31 @@ function App() {
                 </h2>
               </div>
               <SchemaGenerator
-                transcriptSegments={transcriptSegments}
+                transcriptSegments={selectedIdea?.transcriptSegments || transcriptSegments}
                 apiKey={apiKey}
               />
             </motion.section>
           </div>
 
-          {/* Sidebar */}
+          {/* Ideas Library */}
+          <div className="xl:col-span-1 space-y-6 lg:space-y-8">
+            <IdeasLibrary 
+              onSelectIdea={(idea) => {
+                setSelectedIdea(idea);
+                setTranscriptSegments(idea.transcriptSegments);
+                setRecordingForIdea(null);
+              }}
+              onStartRecording={(ideaId) => {
+                setRecordingForIdea(ideaId || null);
+                if (ideaId) {
+                  // Clear current segments when recording for an idea
+                  setTranscriptSegments([]);
+                }
+              }}
+            />
+          </div>
+
+          {/* Info Sidebar */}
           <div className="space-y-6 lg:space-y-8">
             {/* Info Card */}
             <motion.div

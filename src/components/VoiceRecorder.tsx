@@ -5,11 +5,13 @@ import { TranscriptSegment } from '../types';
 
 interface VoiceRecorderProps {
   onTranscriptChange: (segments: TranscriptSegment[]) => void;
+  currentIdeaId?: string;
+  initialSegments?: TranscriptSegment[];
 }
 
-export function VoiceRecorder({ onTranscriptChange }: VoiceRecorderProps) {
+export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegments = [] }: VoiceRecorderProps) {
   const [isRecording, setIsRecording] = useState(false);
-  const [transcriptSegments, setTranscriptSegments] = useState<TranscriptSegment[]>([]);
+  const [transcriptSegments, setTranscriptSegments] = useState<TranscriptSegment[]>(initialSegments);
   const [isSupported, setIsSupported] = useState(true);
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -159,7 +161,7 @@ export function VoiceRecorder({ onTranscriptChange }: VoiceRecorderProps) {
         <span className={`text-sm font-medium ${
           isRecording ? 'text-red-500' : 'text-gray-500'
         }`}>
-          {isRecording ? 'Grabando... Habla ahora' : 'Presiona para grabar'}
+          {isRecording ? 'Grabando... Habla ahora' : currentIdeaId ? 'Añadir a idea existente' : 'Presiona para grabar'}
         </span>
       </div>
 

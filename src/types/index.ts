@@ -22,3 +22,14 @@ export interface AppSettings {
   apiKey: string;
   theme: 'light' | 'dark';
 }
+
+export interface IdeaItem {
+  id: string;
+  title: string;
+  description: string;
+  transcriptSegments: TranscriptSegment[];
+  createdAt: number;
+  updatedAt: number;
+  tags: string[];
+  isCompleted: boolean;
+}
