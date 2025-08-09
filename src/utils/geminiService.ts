@@ -15,7 +15,7 @@ export class GeminiService {
       throw new Error('API key no configurada');
     }
 
-    const model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `
     Analiza el siguiente texto transcrito de una sesión de brainstorming para crear una aplicación o sitio web, y organiza las ideas en un esquema estructurado:
