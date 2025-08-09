@@ -84,7 +84,7 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording }: IdeasLibraryPro
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl"
+      className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl relative z-30"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -135,7 +135,7 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording }: IdeasLibraryPro
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="mb-4 p-4 bg-white/5 rounded-lg border border-white/10"
+            className="mb-4 p-4 bg-white/5 rounded-lg border border-white/10 relative z-40"
           >
             <div className="flex gap-2">
               <input
@@ -169,7 +169,7 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording }: IdeasLibraryPro
       </AnimatePresence>
 
       {/* Ideas List */}
-      <div className="space-y-3 max-h-96 overflow-y-auto">
+      <div className="space-y-3 max-h-96 overflow-y-auto relative z-30">
         <AnimatePresence>
           {filteredIdeas.map((idea, index) => (
             <motion.div

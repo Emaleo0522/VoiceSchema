@@ -92,9 +92,27 @@ function App() {
 
       {/* Main content */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-8">
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 lg:gap-8 relative">
+          {/* Ideas Library - First on mobile for better UX */}
+          <div className="xl:col-span-1 xl:order-3 space-y-6 lg:space-y-8 relative z-20">
+            <IdeasLibrary 
+              onSelectIdea={(idea) => {
+                setSelectedIdea(idea);
+                setTranscriptSegments(idea.transcriptSegments);
+                setRecordingForIdea(null);
+              }}
+              onStartRecording={(ideaId) => {
+                setRecordingForIdea(ideaId || null);
+                if (ideaId) {
+                  // Clear current segments when recording for an idea
+                  setTranscriptSegments([]);
+                }
+              }}
+            />
+          </div>
+
           {/* Columna principal */}
-          <div className="xl:col-span-2 space-y-6 lg:space-y-8">
+          <div className="xl:col-span-2 xl:order-1 space-y-6 lg:space-y-8">
             {/* API Key Configuration */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
@@ -174,26 +192,8 @@ function App() {
             </motion.section>
           </div>
 
-          {/* Ideas Library */}
-          <div className="xl:col-span-1 space-y-6 lg:space-y-8">
-            <IdeasLibrary 
-              onSelectIdea={(idea) => {
-                setSelectedIdea(idea);
-                setTranscriptSegments(idea.transcriptSegments);
-                setRecordingForIdea(null);
-              }}
-              onStartRecording={(ideaId) => {
-                setRecordingForIdea(ideaId || null);
-                if (ideaId) {
-                  // Clear current segments when recording for an idea
-                  setTranscriptSegments([]);
-                }
-              }}
-            />
-          </div>
-
           {/* Info Sidebar */}
-          <div className="space-y-6 lg:space-y-8">
+          <div className="space-y-6 lg:space-y-8 xl:order-2 relative z-10">
             {/* Info Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
