@@ -30,6 +30,7 @@ export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegmen
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'es-ES';
+    recognition.maxAlternatives = 1;
 
     recognition.onresult = (event) => {
       let finalTranscript = '';
@@ -65,6 +66,35 @@ export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegmen
 
     recognition.onerror = (event) => {
       console.error('Speech recognition error:', event.error);
+      if (event.error === 'no-speech' || event.error === 'audio-capture') {
+        // Reintentar automáticamente después de errores temporales
+        if (isRecording) {
+          setTimeout(() => {
+            if (recognitionRef.current && isRecording) {
+              try {
+                recognitionRef.current.start();
+              } catch (e) {
+                console.log('Error al reintentar reconocimiento:', e);
+              }
+            }
+          }, 1000);
+        }
+      }
+    };
+
+    recognition.onend = () => {
+      // Auto-restart si aún estamos grabando (evita que se detenga automáticamente)
+      if (isRecording) {
+        setTimeout(() => {
+          if (recognitionRef.current && isRecording) {
+            try {
+              recognitionRef.current.start();
+            } catch (e) {
+              console.log('Error al reiniciar reconocimiento:', e);
+            }
+          }
+        }, 100);
+      }
     };
 
     recognitionRef.current = recognition;
@@ -74,7 +104,7 @@ export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegmen
         recognitionRef.current.stop();
       }
     };
-  }, [onTranscriptChange]);
+  }, [onTranscriptChange, isRecording]);
 
   const startRecording = () => {
     if (recognitionRef.current && !isRecording) {
