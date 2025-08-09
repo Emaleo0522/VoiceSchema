@@ -18,9 +18,4 @@ export default defineConfig({
       }
     }
   },
-  server: {
-    headers: {
-      'Content-Security-Policy': "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.profitableratecpm.com https://*.profitablerevenue.com data: 'sha256-*';"
-    }
-  }
 });

@@ -5,7 +5,6 @@ import { VoiceRecorder } from './components/VoiceRecorder';
 import { SchemaGenerator } from './components/SchemaGenerator';
 import { ThemeToggle } from './components/ThemeToggle';
 import { ApiKeyInput } from './components/ApiKeyInput';
-import { AdSpace } from './components/AdSpace';
 import { useTheme } from './hooks/useTheme';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { TranscriptSegment } from './types';
@@ -142,20 +141,11 @@ function App() {
 
           {/* Sidebar */}
           <div className="space-y-6 lg:space-y-8">
-            {/* Ad Space */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <AdSpace />
-            </motion.section>
-
             {/* Info Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.4 }}
               className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/30 shadow-xl"
             >
               <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
