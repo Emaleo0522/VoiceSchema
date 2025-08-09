@@ -49,8 +49,8 @@ function App() {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 p-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+      <header className="relative z-10 p-4 sm:p-6">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -72,7 +72,7 @@ function App() {
               />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 
+              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 
                            bg-clip-text text-transparent">
                 VoiceSchema
               </h1>
@@ -87,10 +87,10 @@ function App() {
       </header>
 
       {/* Main content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pb-8">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Columna principal */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 lg:space-y-8">
             {/* API Key Configuration */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
@@ -105,13 +105,13 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30 shadow-xl"
+              className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/30 shadow-xl"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-red-500 rounded-lg">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">
                   Grabación de Voz
                 </h2>
               </div>
@@ -123,13 +123,13 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30 shadow-xl"
+              className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/30 shadow-xl"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-blue-500 rounded-lg">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">
                   Generador de Esquemas
                 </h2>
               </div>
@@ -141,7 +141,7 @@ function App() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8">
+          <div className="space-y-6 lg:space-y-8">
             {/* Ad Space */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
@@ -156,9 +156,9 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 shadow-xl"
+              className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/30 shadow-xl"
             >
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
                 ¿Cómo funciona?
               </h3>
               <div className="space-y-4 text-sm text-gray-600 dark:text-gray-400">

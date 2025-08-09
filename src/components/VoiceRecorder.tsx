@@ -98,12 +98,12 @@ export function VoiceRecorder({ onTranscriptChange }: VoiceRecorderProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <motion.button
           onClick={isRecording ? stopRecording : startRecording}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`relative p-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl ${
+          className={`relative p-4 sm:p-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl ${
             isRecording
               ? 'bg-red-500 hover:bg-red-600 text-white'
               : 'bg-blue-500 hover:bg-blue-600 text-white'
@@ -147,8 +147,8 @@ export function VoiceRecorder({ onTranscriptChange }: VoiceRecorderProps) {
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg
-                     transition-all duration-200 text-sm font-medium"
+            className="px-3 sm:px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg
+                     transition-all duration-200 text-xs sm:text-sm font-medium"
           >
             Limpiar
           </motion.button>

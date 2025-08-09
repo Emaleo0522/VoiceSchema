@@ -13,11 +13,11 @@ export function ApiKeyInput({ value, onChange }: ApiKeyInputProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <motion.div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-      <div className="flex items-center justify-between mb-2">
+    <motion.div className="bg-white/5 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-2">
           <Key className="w-4 h-4 text-blue-400" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
             API Key de Gemini
           </span>
         </div>
@@ -45,7 +45,7 @@ export function ApiKeyInput({ value, onChange }: ApiKeyInputProps) {
                 onChange={(e) => onChange(e.target.value)}
                 placeholder="Ingresa tu API key de Gemini..."
                 className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg
-                         text-sm text-gray-700 dark:text-gray-300 placeholder-gray-500
+                         text-xs sm:text-sm text-gray-700 dark:text-gray-300 placeholder-gray-500
                          focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20
                          transition-all duration-200"
               />

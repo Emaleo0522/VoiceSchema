@@ -101,7 +101,7 @@ ${schema.finalPrompt}
           disabled={isGenerating || !apiKey || transcriptSegments.length === 0}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600
+          className="flex items-center gap-3 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600
                    hover:from-blue-600 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500
                    text-white rounded-xl font-semibold shadow-lg hover:shadow-xl
                    transition-all duration-300 disabled:cursor-not-allowed"
@@ -136,17 +136,17 @@ ${schema.finalPrompt}
             className="space-y-6"
           >
             {/* Header del proyecto */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/20">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
                     {schema.projectTitle}
                   </h2>
                   <p className="text-gray-600 dark:text-gray-400">
                     {schema.description}
                   </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-4 sm:mt-0">
                   <motion.button
                     onClick={downloadSchema}
                     whileHover={{ scale: 1.05 }}
@@ -160,12 +160,12 @@ ${schema.finalPrompt}
               </div>
 
               {/* Stack tecnológico */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {schema.techStack.map((tech, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300
-                             rounded-full text-sm font-medium"
+                    className="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300
+                             rounded-full text-xs sm:text-sm font-medium"
                   >
                     {tech}
                   </span>
@@ -181,13 +181,13 @@ ${schema.finalPrompt}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
                       {section.title}
                     </h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(section.priority)}`}>
+                    <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium ${getPriorityColor(section.priority)}`}>
                       {section.priority}
                     </span>
                   </div>
@@ -208,17 +208,17 @@ ${schema.finalPrompt}
 
             {/* Prompt final */}
             <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20
-                          rounded-xl p-6 border border-purple-200 dark:border-purple-800">
+                          rounded-xl p-4 sm:p-6 border border-purple-200 dark:border-purple-800">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
                   Prompt Optimizado para IA
                 </h3>
                 <motion.button
                   onClick={() => copyToClipboard(schema.finalPrompt, 'prompt')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-3 py-1 bg-purple-500 hover:bg-purple-600
-                           text-white rounded-lg transition-colors text-sm"
+                  className="flex items-center gap-2 px-2 sm:px-3 py-1 bg-purple-500 hover:bg-purple-600
+                           text-white rounded-lg transition-colors text-xs sm:text-sm"
                 >
                   {copied === 'prompt' ? (
                     <>
