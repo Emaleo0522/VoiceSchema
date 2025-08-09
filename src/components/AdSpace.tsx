@@ -6,13 +6,14 @@ export function AdSpace() {
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
 
-  // Adsterra configuration - CORRECTED Zone ID from panel
+  // Adsterra configuration - CORRECTED Zone ID from panel (FORCED REBUILD)
   const adConfig = {
     containerId: 'container-781f8523b894765a79a75ac7e8950eca',
     scriptUrls: [
       '//pl27377848.profitableratecpm.com/781f8523b894765a79a75ac7e8950eca/invoke.js',
       'https://pl27377848.profitableratecpm.com/781f8523b894765a79a75ac7e8950eca/invoke.js'
-    ]
+    ],
+    buildTimestamp: '2025-08-09T01:04:00Z' // Force cache busting
   };
 
   const loadAdsterraScript = (url: string, attempt: number = 1): Promise<boolean> => {
@@ -55,6 +56,8 @@ export function AdSpace() {
 
   const tryLoadAd = async () => {
     setAdStatus('loading');
+    console.log(`🔧 AdSpace component loaded with correct Zone ID: ${adConfig.containerId}`);
+    console.log(`🚀 Build timestamp: ${adConfig.buildTimestamp}`);
     
     for (const url of adConfig.scriptUrls) {
       console.log(`Attempting to load Adsterra from: ${url}`);
