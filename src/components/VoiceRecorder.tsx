@@ -7,9 +7,10 @@ interface VoiceRecorderProps {
   onTranscriptChange: (segments: TranscriptSegment[]) => void;
   currentIdeaId?: string;
   initialSegments?: TranscriptSegment[];
+  onSaveToIdea?: (ideaId: string, segments: TranscriptSegment[]) => void;
 }
 
-export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegments = [] }: VoiceRecorderProps) {
+export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegments = [], onSaveToIdea }: VoiceRecorderProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [transcriptSegments, setTranscriptSegments] = useState<TranscriptSegment[]>(initialSegments);
   const [isSupported, setIsSupported] = useState(true);
@@ -51,6 +52,12 @@ export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegmen
         setTranscriptSegments(prev => {
           const updated = [...prev, newSegment];
           onTranscriptChange(updated);
+          
+          // Auto-save to idea if we're recording for a specific idea
+          if (currentIdeaId && onSaveToIdea) {
+            onSaveToIdea(currentIdeaId, updated);
+          }
+          
           return updated;
         });
       }
@@ -142,19 +149,35 @@ export function VoiceRecorder({ onTranscriptChange, currentIdeaId, initialSegmen
           )}
         </motion.button>
 
-        {transcriptSegments.length > 0 && (
-          <motion.button
-            onClick={clearTranscript}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-3 sm:px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg
-                     transition-all duration-200 text-xs sm:text-sm font-medium"
-          >
-            Limpiar
-          </motion.button>
-        )}
+        <div className="flex gap-2">
+          {transcriptSegments.length > 0 && (
+            <motion.button
+              onClick={clearTranscript}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-3 sm:px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg
+                       transition-all duration-200 text-xs sm:text-sm font-medium"
+            >
+              Limpiar
+            </motion.button>
+          )}
+          
+          {currentIdeaId && transcriptSegments.length > 0 && onSaveToIdea && (
+            <motion.button
+              onClick={() => onSaveToIdea(currentIdeaId, transcriptSegments)}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-3 sm:px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg
+                       transition-all duration-200 text-xs sm:text-sm font-medium"
+            >
+              💾 Guardar en idea
+            </motion.button>
+          )}
+        </div>
       </div>
 
       <div className="text-center">

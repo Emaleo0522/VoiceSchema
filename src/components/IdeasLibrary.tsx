@@ -12,7 +12,9 @@ import {
   CheckCircle2,
   Circle,
   PlayCircle,
-  Calendar
+  Calendar,
+  Sparkles,
+  FileText
 } from 'lucide-react';
 import { useIdeas } from '../hooks/useIdeas';
 import { IdeaItem } from '../types';
@@ -20,9 +22,10 @@ import { IdeaItem } from '../types';
 interface IdeasLibraryProps {
   onSelectIdea?: (idea: IdeaItem) => void;
   onStartRecording?: (ideaId?: string) => void;
+  onGenerateSchema?: (idea: IdeaItem) => void;
 }
 
-export function IdeasLibrary({ onSelectIdea, onStartRecording }: IdeasLibraryProps) {
+export function IdeasLibrary({ onSelectIdea, onStartRecording, onGenerateSchema }: IdeasLibraryProps) {
   const { 
     ideas, 
     createIdea, 
@@ -236,9 +239,9 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording }: IdeasLibraryPro
                       </div>
                       
                       {idea.transcriptSegments.length > 0 && (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 text-green-600 dark:text-green-400">
                           <Mic className="w-3 h-3" />
-                          {idea.transcriptSegments.length} grabación(es)
+                          {idea.transcriptSegments.length} grabación{idea.transcriptSegments.length !== 1 ? 'es' : ''}
                         </div>
                       )}
                     </div>
@@ -247,6 +250,19 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording }: IdeasLibraryPro
 
                 {/* Actions */}
                 <div className="flex items-center gap-1">
+                  {idea.transcriptSegments.length > 0 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onGenerateSchema?.(idea);
+                      }}
+                      className="p-1 text-gray-400 hover:text-purple-500 transition-colors"
+                      title="Generar esquema con IA"
+                    >
+                      <Sparkles className="w-4 h-4" />
+                    </button>
+                  )}
+                  
                   <button
                     onClick={(e) => {
                       e.stopPropagation();

@@ -17,7 +17,18 @@ function App() {
   const [transcriptSegments, setTranscriptSegments] = useState<TranscriptSegment[]>([]);
   const [selectedIdea, setSelectedIdea] = useState<IdeaItem | null>(null);
   const [recordingForIdea, setRecordingForIdea] = useState<string | null>(null);
-  const { addTranscriptToIdea } = useIdeas();
+  const [generatingSchemaForIdea, setGeneratingSchemaForIdea] = useState<IdeaItem | null>(null);
+  const { addTranscriptToIdea, ideas } = useIdeas();
+
+  // Update selected idea when ideas change (for real-time updates)
+  useEffect(() => {
+    if (selectedIdea) {
+      const updatedIdea = ideas.find(i => i.id === selectedIdea.id);
+      if (updatedIdea) {
+        setSelectedIdea(updatedIdea);
+      }
+    }
+  }, [ideas, selectedIdea]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 
@@ -100,13 +111,25 @@ function App() {
                 setSelectedIdea(idea);
                 setTranscriptSegments(idea.transcriptSegments);
                 setRecordingForIdea(null);
+                setGeneratingSchemaForIdea(null);
               }}
               onStartRecording={(ideaId) => {
-                setRecordingForIdea(ideaId || null);
                 if (ideaId) {
-                  // Clear current segments when recording for an idea
-                  setTranscriptSegments([]);
+                  const idea = ideas.find(i => i.id === ideaId);
+                  if (idea) {
+                    setSelectedIdea(idea);
+                    setRecordingForIdea(ideaId);
+                    setTranscriptSegments(idea.transcriptSegments);
+                  }
+                } else {
+                  setRecordingForIdea(null);
                 }
+              }}
+              onGenerateSchema={(idea) => {
+                setGeneratingSchemaForIdea(idea);
+                setSelectedIdea(idea);
+                setTranscriptSegments(idea.transcriptSegments);
+                setRecordingForIdea(null);
               }}
             />
           </div>
@@ -151,6 +174,7 @@ function App() {
                       setSelectedIdea(null);
                       setTranscriptSegments([]);
                       setRecordingForIdea(null);
+                      setGeneratingSchemaForIdea(null);
                     }}
                     className="px-3 py-1 text-xs bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
                   >
@@ -161,12 +185,14 @@ function App() {
               <VoiceRecorder 
                 onTranscriptChange={(segments) => {
                   setTranscriptSegments(segments);
-                  if (recordingForIdea) {
-                    addTranscriptToIdea(recordingForIdea, segments);
-                  }
                 }}
                 currentIdeaId={recordingForIdea}
                 initialSegments={selectedIdea?.transcriptSegments}
+                onSaveToIdea={(ideaId, segments) => {
+                  addTranscriptToIdea(ideaId, segments);
+                  // Show feedback that it was saved
+                  console.log('Grabación guardada en la idea');
+                }}
               />
             </motion.section>
 
@@ -177,16 +203,33 @@ function App() {
               transition={{ delay: 0.3 }}
               className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/30 shadow-xl"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-blue-500 rounded-lg">
-                  <Sparkles className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-blue-500 rounded-lg">
+                    <Sparkles className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">
+                      Generador de Esquemas
+                    </h2>
+                    {generatingSchemaForIdea && (
+                      <p className="text-sm text-purple-400">
+                        ✨ Generando desde: {generatingSchemaForIdea.title}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">
-                  Generador de Esquemas
-                </h2>
+                {generatingSchemaForIdea && (
+                  <button
+                    onClick={() => setGeneratingSchemaForIdea(null)}
+                    className="px-3 py-1 text-xs bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                  >
+                    Limpiar
+                  </button>
+                )}
               </div>
               <SchemaGenerator
-                transcriptSegments={selectedIdea?.transcriptSegments || transcriptSegments}
+                transcriptSegments={generatingSchemaForIdea?.transcriptSegments || selectedIdea?.transcriptSegments || transcriptSegments}
                 apiKey={apiKey}
               />
             </motion.section>
