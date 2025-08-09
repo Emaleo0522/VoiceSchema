@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { Bot, Download, Copy, CheckCircle, AlertCircle } from 'lucide-react';
+import { Bot, Download, Copy, CheckCircle, AlertCircle, Save } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GeneratedSchema, TranscriptSegment } from '../types';
+import { GeneratedSchema, TranscriptSegment, IdeaItem } from '../types';
 import { GeminiService } from '../utils/geminiService';
 
 interface SchemaGeneratorProps {
   transcriptSegments: TranscriptSegment[];
   apiKey: string;
+  onSaveToIdea?: (ideaId: string, schema: GeneratedSchema) => void;
+  availableIdeas?: IdeaItem[];
 }
 
-export function SchemaGenerator({ transcriptSegments, apiKey }: SchemaGeneratorProps) {
+export function SchemaGenerator({ transcriptSegments, apiKey, onSaveToIdea, availableIdeas = [] }: SchemaGeneratorProps) {
   const [schema, setSchema] = useState<GeneratedSchema | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [selectedIdeaId, setSelectedIdeaId] = useState<string>('');
 
   const generateSchema = async () => {
     if (!apiKey) {
@@ -84,6 +88,16 @@ ${schema.finalPrompt}
     URL.revokeObjectURL(url);
   };
 
+  const handleSaveToIdea = () => {
+    if (!selectedIdeaId || !schema || !onSaveToIdea) return;
+    
+    onSaveToIdea(selectedIdeaId, schema);
+    setShowSaveModal(false);
+    setSelectedIdeaId('');
+    setCopied('saved');
+    setTimeout(() => setCopied(null), 2000);
+  };
+
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'high': return 'text-red-500 bg-red-100 dark:bg-red-900/20';
@@ -147,6 +161,18 @@ ${schema.finalPrompt}
                   </p>
                 </div>
                 <div className="flex gap-2 mt-4 sm:mt-0">
+                  {onSaveToIdea && availableIdeas.length > 0 && (
+                    <motion.button
+                      onClick={() => setShowSaveModal(true)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg
+                               transition-colors shadow-md"
+                      title="Guardar en idea"
+                    >
+                      <Save className="w-4 h-4" />
+                    </motion.button>
+                  )}
                   <motion.button
                     onClick={downloadSchema}
                     whileHover={{ scale: 1.05 }}
@@ -239,6 +265,78 @@ ${schema.finalPrompt}
                 </p>
               </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal para guardar en idea */}
+      <AnimatePresence>
+        {showSaveModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            onClick={() => setShowSaveModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                Guardar esquema en idea
+              </h3>
+              
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Selecciona una idea:
+                </label>
+                <select
+                  value={selectedIdeaId}
+                  onChange={(e) => setSelectedIdeaId(e.target.value)}
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg
+                           bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200
+                           focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Seleccionar idea...</option>
+                  {availableIdeas.map((idea) => (
+                    <option key={idea.id} value={idea.id}>
+                      {idea.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={() => setShowSaveModal(false)}
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200
+                           transition-colors"
+                >
+                  Cancelar
+                </button>
+                <motion.button
+                  onClick={handleSaveToIdea}
+                  disabled={!selectedIdeaId}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400
+                           text-white rounded-lg transition-colors disabled:cursor-not-allowed"
+                >
+                  {copied === 'saved' ? (
+                    <>
+                      <CheckCircle className="w-4 h-4 inline mr-1" />
+                      Guardado
+                    </>
+                  ) : (
+                    'Guardar'
+                  )}
+                </motion.button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

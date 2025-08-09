@@ -14,7 +14,8 @@ import {
   PlayCircle,
   Calendar,
   Sparkles,
-  FileText
+  FileText,
+  BookOpen
 } from 'lucide-react';
 import { useIdeas } from '../hooks/useIdeas';
 import { IdeaItem } from '../types';
@@ -242,6 +243,13 @@ export function IdeasLibrary({ onSelectIdea, onStartRecording, onGenerateSchema 
                         <div className="flex items-center gap-1 text-green-600 dark:text-green-400">
                           <Mic className="w-3 h-3" />
                           {idea.transcriptSegments.length} grabación{idea.transcriptSegments.length !== 1 ? 'es' : ''}
+                        </div>
+                      )}
+                      
+                      {idea.generatedSchema && (
+                        <div className="flex items-center gap-1 text-purple-600 dark:text-purple-400">
+                          <BookOpen className="w-3 h-3" />
+                          Esquema
                         </div>
                       )}
                     </div>

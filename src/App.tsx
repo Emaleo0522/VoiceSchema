@@ -18,7 +18,7 @@ function App() {
   const [selectedIdea, setSelectedIdea] = useState<IdeaItem | null>(null);
   const [recordingForIdea, setRecordingForIdea] = useState<string | null>(null);
   const [generatingSchemaForIdea, setGeneratingSchemaForIdea] = useState<IdeaItem | null>(null);
-  const { addTranscriptToIdea, ideas } = useIdeas();
+  const { addTranscriptToIdea, ideas, saveSchemaToIdea } = useIdeas();
 
   // Update selected idea when ideas change (for real-time updates)
   useEffect(() => {
@@ -231,6 +231,8 @@ function App() {
               <SchemaGenerator
                 transcriptSegments={generatingSchemaForIdea?.transcriptSegments || selectedIdea?.transcriptSegments || transcriptSegments}
                 apiKey={apiKey}
+                onSaveToIdea={saveSchemaToIdea}
+                availableIdeas={ideas}
               />
             </motion.section>
           </div>

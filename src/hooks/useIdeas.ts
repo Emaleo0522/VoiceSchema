@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { IdeaItem, TranscriptSegment } from '../types';
+import { IdeaItem, TranscriptSegment, GeneratedSchema } from '../types';
 import { useLocalStorage } from './useLocalStorage';
 
 export function useIdeas() {
@@ -73,6 +73,10 @@ export function useIdeas() {
     );
   };
 
+  const saveSchemaToIdea = (ideaId: string, schema: GeneratedSchema) => {
+    updateIdea(ideaId, { generatedSchema: schema });
+  };
+
   return {
     ideas,
     createIdea,
@@ -84,5 +88,6 @@ export function useIdeas() {
     removeTagFromIdea,
     getIdeasByTag,
     searchIdeas,
+    saveSchemaToIdea,
   };
 }

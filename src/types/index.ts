@@ -32,4 +32,5 @@ export interface IdeaItem {
   updatedAt: number;
   tags: string[];
   isCompleted: boolean;
+  generatedSchema?: GeneratedSchema;
 }
