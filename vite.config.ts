@@ -7,4 +7,16 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    headers: {
+      'Content-Security-Policy': "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pl27377848.profitableratecpm.com https://*.profitableratecpm.com;"
+    }
+  },
+  build: {
+    rollupOptions: {
+      external: [
+        /^https:\/\/.*\.profitableratecpm\.com\/.*$/
+      ]
+    }
+  }
 });
