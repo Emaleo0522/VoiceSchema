@@ -18,7 +18,7 @@ function App() {
   const [selectedIdea, setSelectedIdea] = useState<IdeaItem | null>(null);
   const [recordingForIdea, setRecordingForIdea] = useState<string | null>(null);
   const [generatingSchemaForIdea, setGeneratingSchemaForIdea] = useState<IdeaItem | null>(null);
-  const { addTranscriptToIdea, ideas, saveSchemaToIdea } = useIdeas();
+  const { addTranscriptToIdea, ideas, saveSchemaToIdea, createIdea } = useIdeas();
 
   // Update selected idea when ideas change (for real-time updates)
   useEffect(() => {
@@ -233,6 +233,11 @@ function App() {
                 apiKey={apiKey}
                 onSaveToIdea={saveSchemaToIdea}
                 availableIdeas={ideas}
+                onCreateIdea={(title: string, schema: any, segments: any[]) => {
+                  const newIdea = createIdea(title, '', segments);
+                  saveSchemaToIdea(newIdea.id, schema);
+                  return newIdea;
+                }}
               />
             </motion.section>
           </div>

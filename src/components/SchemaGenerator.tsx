@@ -9,15 +9,18 @@ interface SchemaGeneratorProps {
   apiKey: string;
   onSaveToIdea?: (ideaId: string, schema: GeneratedSchema) => void;
   availableIdeas?: IdeaItem[];
+  onCreateIdea?: (title: string, schema: GeneratedSchema, segments: TranscriptSegment[]) => IdeaItem;
 }
 
-export function SchemaGenerator({ transcriptSegments, apiKey, onSaveToIdea, availableIdeas = [] }: SchemaGeneratorProps) {
+export function SchemaGenerator({ transcriptSegments, apiKey, onSaveToIdea, availableIdeas = [], onCreateIdea }: SchemaGeneratorProps) {
   const [schema, setSchema] = useState<GeneratedSchema | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [selectedIdeaId, setSelectedIdeaId] = useState<string>('');
+  const [saveMode, setSaveMode] = useState<'existing' | 'new'>(availableIdeas.length > 0 ? 'existing' : 'new');
+  const [newIdeaTitle, setNewIdeaTitle] = useState('');
 
   const generateSchema = async () => {
     if (!apiKey) {
@@ -89,11 +92,20 @@ ${schema.finalPrompt}
   };
 
   const handleSaveToIdea = () => {
-    if (!selectedIdeaId || !schema || !onSaveToIdea) return;
+    if (!schema) return;
     
-    onSaveToIdea(selectedIdeaId, schema);
+    if (saveMode === 'existing') {
+      if (!selectedIdeaId || !onSaveToIdea) return;
+      onSaveToIdea(selectedIdeaId, schema);
+    } else if (saveMode === 'new') {
+      if (!newIdeaTitle.trim() || !onCreateIdea) return;
+      onCreateIdea(newIdeaTitle.trim(), schema, transcriptSegments);
+    }
+    
     setShowSaveModal(false);
     setSelectedIdeaId('');
+    setNewIdeaTitle('');
+    setSaveMode(availableIdeas.length > 0 ? 'existing' : 'new');
     setCopied('saved');
     setTimeout(() => setCopied(null), 2000);
   };
@@ -161,14 +173,14 @@ ${schema.finalPrompt}
                   </p>
                 </div>
                 <div className="flex gap-2 mt-4 sm:mt-0">
-                  {onSaveToIdea && availableIdeas.length > 0 && (
+                  {(onSaveToIdea || onCreateIdea) && (
                     <motion.button
                       onClick={() => setShowSaveModal(true)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg
                                transition-colors shadow-md"
-                      title="Guardar en idea"
+                      title="Guardar esquema"
                     >
                       <Save className="w-4 h-4" />
                     </motion.button>
@@ -287,27 +299,72 @@ ${schema.finalPrompt}
               onClick={(e) => e.stopPropagation()}
             >
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                Guardar esquema en idea
+                Guardar esquema
               </h3>
-              
+
+              {/* Selector de modo */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Selecciona una idea:
-                </label>
-                <select
-                  value={selectedIdeaId}
-                  onChange={(e) => setSelectedIdeaId(e.target.value)}
-                  className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg
-                           bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200
-                           focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Seleccionar idea...</option>
-                  {availableIdeas.map((idea) => (
-                    <option key={idea.id} value={idea.id}>
-                      {idea.title}
-                    </option>
-                  ))}
-                </select>
+                <div className="flex gap-4 mb-3">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      value="new"
+                      checked={saveMode === 'new'}
+                      onChange={(e) => setSaveMode(e.target.value as 'new')}
+                      className="mr-2"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Como nueva idea</span>
+                  </label>
+                  {availableIdeas.length > 0 && (
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        value="existing"
+                        checked={saveMode === 'existing'}
+                        onChange={(e) => setSaveMode(e.target.value as 'existing')}
+                        className="mr-2"
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">En idea existente</span>
+                    </label>
+                  )}
+                </div>
+
+                {saveMode === 'new' ? (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Título de la nueva idea:
+                    </label>
+                    <input
+                      type="text"
+                      value={newIdeaTitle}
+                      onChange={(e) => setNewIdeaTitle(e.target.value)}
+                      placeholder="Escribe el título de tu idea..."
+                      className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg
+                               bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200
+                               focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Selecciona una idea:
+                    </label>
+                    <select
+                      value={selectedIdeaId}
+                      onChange={(e) => setSelectedIdeaId(e.target.value)}
+                      className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg
+                               bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200
+                               focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">Seleccionar idea...</option>
+                      {availableIdeas.map((idea) => (
+                        <option key={idea.id} value={idea.id}>
+                          {idea.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
 
               <div className="flex gap-3 justify-end">
@@ -320,7 +377,7 @@ ${schema.finalPrompt}
                 </button>
                 <motion.button
                   onClick={handleSaveToIdea}
-                  disabled={!selectedIdeaId}
+                  disabled={saveMode === 'existing' ? !selectedIdeaId : !newIdeaTitle.trim()}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400
