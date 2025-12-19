@@ -230,9 +230,46 @@ export const Home: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((item, index) => (
+          {[
+            {
+              id: 1,
+              title: 'Decoración Mandala',
+              description: 'Grabado detallado en MDF',
+              image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80'
+            },
+            {
+              id: 2,
+              title: 'Letras Corporativas',
+              description: 'Corte de precisión para señalética',
+              image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80'
+            },
+            {
+              id: 3,
+              title: 'Arte Geométrico',
+              description: 'Diseños personalizados',
+              image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800&q=80'
+            },
+            {
+              id: 4,
+              title: 'Porta Retratos',
+              description: 'Productos únicos para regalar',
+              image: 'https://images.unsplash.com/photo-1533073526757-2c8ca1df9f1c?w=800&q=80'
+            },
+            {
+              id: 5,
+              title: 'Decoración Hogar',
+              description: 'Piezas decorativas exclusivas',
+              image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80'
+            },
+            {
+              id: 6,
+              title: 'Rompecabezas Personalizados',
+              description: 'Corte láser de alta precisión',
+              image: 'https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=800&q=80'
+            }
+          ].map((proyecto, index) => (
             <motion.div
-              key={item}
+              key={proyecto.id}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -241,28 +278,25 @@ export const Home: React.FC = () => {
                        border border-orange-200/30 dark:border-orange-800/30 shadow-xl
                        overflow-hidden hover:shadow-2xl transition-all group"
             >
-              <div className="aspect-square bg-gradient-to-br from-orange-200 to-amber-200
-                            dark:from-orange-900/50 dark:to-amber-900/50
-                            flex items-center justify-center relative overflow-hidden">
-                <Sparkles className="w-12 h-12 text-orange-400 dark:text-orange-600" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all" />
+              <div className="aspect-square relative overflow-hidden bg-gray-200 dark:bg-gray-700">
+                <img
+                  src={proyecto.image}
+                  alt={proyecto.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="p-4">
                 <h5 className="font-semibold text-gray-800 dark:text-gray-200">
-                  Proyecto {item}
+                  {proyecto.title}
                 </h5>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Corte y grabado láser en MDF
+                  {proyecto.description}
                 </p>
               </div>
             </motion.div>
           ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            💡 Las imágenes de tus trabajos pueden agregarse luego reemplazando estos placeholders
-          </p>
         </div>
       </section>
 
