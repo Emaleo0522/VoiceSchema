@@ -200,7 +200,7 @@ export const Privacidad: React.FC = () => {
                 <strong>Email:</strong> <a href="mailto:contacto@grabarte.com" className="text-blue-600 dark:text-blue-400">contacto@grabarte.com</a>
               </p>
               <p className="text-gray-800 dark:text-gray-200 mt-2">
-                <strong>WhatsApp:</strong> <a href="https://wa.me/5491234567890" className="text-blue-600 dark:text-blue-400">+54 9 11 1234-5678</a>
+                <strong>WhatsApp:</strong> <a href="https://wa.me/5492604317432" className="text-blue-600 dark:text-blue-400">+54 9 260 431-7432</a>
               </p>
               <p className="text-gray-800 dark:text-gray-200 mt-2">
                 <strong>Web:</strong> <a href="https://www.voiceschema.site" className="text-blue-600 dark:text-blue-400">https://www.voiceschema.site</a>

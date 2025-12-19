@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
     e.preventDefault();
     // Aquí puedes agregar la lógica para enviar el formulario
     const whatsappMessage = `Hola! Me contacto desde la web.%0ANombre: ${formData.nombre}%0AEmail: ${formData.email}%0ATeléfono: ${formData.telefono}%0AMensaje: ${formData.mensaje}`;
-    window.open(`https://wa.me/5491234567890?text=${whatsappMessage}`, '_blank');
+    window.open(`https://wa.me/5492604317432?text=${whatsappMessage}`, '_blank');
   };
 
   return (
@@ -352,10 +352,10 @@ export const Home: React.FC = () => {
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">
                     WhatsApp
                   </h4>
-                  <a href="https://wa.me/5491234567890"
+                  <a href="https://wa.me/5492604317432"
                      className="text-orange-600 dark:text-orange-400 hover:underline"
                      target="_blank" rel="noopener noreferrer">
-                    +54 9 11 1234-5678
+                    +54 9 260 431-7432
                   </a>
                 </div>
               </div>
@@ -450,7 +450,7 @@ export const Home: React.FC = () => {
                            bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200
                            focus:ring-2 focus:ring-orange-500 focus:border-transparent
                            transition-all"
-                  placeholder="+54 9 11 1234-5678"
+                  placeholder="+54 9 260 431-7432"
                 />
               </div>
 
