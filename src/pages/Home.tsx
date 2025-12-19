@@ -235,37 +235,37 @@ export const Home: React.FC = () => {
               id: 1,
               title: 'Decoración Mandala',
               description: 'Grabado detallado en MDF',
-              image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80'
+              image: 'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=800&q=80'
             },
             {
               id: 2,
               title: 'Letras Corporativas',
               description: 'Corte de precisión para señalética',
-              image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80'
+              image: 'https://images.unsplash.com/photo-1572721546624-05bf65ad7679?w=800&q=80'
             },
             {
               id: 3,
               title: 'Arte Geométrico',
               description: 'Diseños personalizados',
-              image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800&q=80'
+              image: 'https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800&q=80'
             },
             {
               id: 4,
               title: 'Porta Retratos',
               description: 'Productos únicos para regalar',
-              image: 'https://images.unsplash.com/photo-1533073526757-2c8ca1df9f1c?w=800&q=80'
+              image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80'
             },
             {
               id: 5,
               title: 'Decoración Hogar',
               description: 'Piezas decorativas exclusivas',
-              image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80'
+              image: 'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80'
             },
             {
               id: 6,
               title: 'Rompecabezas Personalizados',
               description: 'Corte láser de alta precisión',
-              image: 'https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=800&q=80'
+              image: 'https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?w=800&q=80'
             }
           ].map((proyecto, index) => (
             <motion.div
