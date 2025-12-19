@@ -81,10 +81,9 @@ export const Privacidad: React.FC = () => {
         >
           <div className="prose prose-blue dark:prose-invert max-w-none">
             <p className="lead text-gray-700 dark:text-gray-300">
-              En VoiceSchema (<a href="https://www.voiceschema.site" className="text-blue-600 dark:text-blue-400">https://www.voiceschema.site</a>)
+              En GrabArte (<a href="https://www.voiceschema.site" className="text-blue-600 dark:text-blue-400">https://www.voiceschema.site</a>)
               valoramos y respetamos la privacidad de los usuarios. Esta Política de Privacidad describe cómo recopilamos,
-              utilizamos y protegemos la información personal cuando se utilizan nuestros servicios, incluyendo el uso de
-              integraciones con plataformas de terceros como Meta (Facebook, Instagram, WhatsApp).
+              utilizamos y protegemos la información personal cuando se solicitan nuestros servicios de corte y grabado láser.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
@@ -97,8 +96,8 @@ export const Privacidad: React.FC = () => {
               <li>Nombre y apellido</li>
               <li>Dirección de correo electrónico</li>
               <li>Número de teléfono</li>
-              <li>Información proporcionada voluntariamente a través de formularios o mensajes</li>
-              <li>Datos necesarios para el uso de servicios de mensajería (como WhatsApp Business API)</li>
+              <li>Información proporcionada voluntariamente a través de formularios de contacto</li>
+              <li>Detalles del proyecto o servicio solicitado</li>
             </ul>
             <p className="text-gray-700 dark:text-gray-300 mt-4">
               No recopilamos información sensible sin el consentimiento explícito del usuario.
@@ -111,11 +110,11 @@ export const Privacidad: React.FC = () => {
               La información recopilada se utiliza únicamente para:
             </p>
             <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>Brindar y mejorar nuestros servicios</li>
-              <li>Gestionar comunicaciones con los usuarios</li>
-              <li>Operar funcionalidades de mensajería y automatización</li>
-              <li>Cumplir con requisitos legales y técnicos de plataformas como Meta</li>
+              <li>Brindar y mejorar nuestros servicios de corte y grabado láser</li>
+              <li>Gestionar comunicaciones y presupuestos con los clientes</li>
+              <li>Procesar pedidos y coordinar entregas</li>
               <li>Enviar información relacionada con el servicio solicitado</li>
+              <li>Mejorar la experiencia del usuario en nuestro sitio web</li>
             </ul>
             <p className="text-gray-700 dark:text-gray-300 mt-4">
               No utilizamos los datos para fines distintos a los aquí descritos.
@@ -125,36 +124,22 @@ export const Privacidad: React.FC = () => {
               3. Compartición de información con terceros
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
-              VoiceSchema no vende ni comercializa datos personales.
+              GrabArte no vende ni comercializa datos personales.
             </p>
             <p className="text-gray-700 dark:text-gray-300 mt-4">
               Podemos compartir información únicamente con:
             </p>
             <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>Proveedores de servicios tecnológicos necesarios para el funcionamiento de la plataforma</li>
-              <li>Meta Platforms, Inc. (Facebook, Instagram, WhatsApp), exclusivamente para la operación de la API y servicios asociados</li>
+              <li>Proveedores de servicios tecnológicos necesarios para el funcionamiento del sitio web</li>
+              <li>Servicios de mensajería (como WhatsApp) para gestionar consultas y comunicaciones con clientes</li>
+              <li>Proveedores de hosting y almacenamiento de datos</li>
             </ul>
             <p className="text-gray-700 dark:text-gray-300 mt-4">
-              Dicha información se comparte bajo los estándares de seguridad exigidos por estas plataformas.
+              Dicha información se comparte bajo estándares de seguridad apropiados y únicamente para cumplir con los servicios solicitados.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              4. Uso de WhatsApp Business API
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Al utilizar servicios que integran WhatsApp Business API, el usuario acepta que:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>Su número de teléfono y mensajes puedan ser procesados para brindar el servicio</li>
-              <li>Los datos se utilicen solo para la comunicación solicitada</li>
-              <li>El usuario puede solicitar dejar de recibir mensajes en cualquier momento</li>
-            </ul>
-            <p className="text-gray-700 dark:text-gray-300 mt-4">
-              VoiceSchema cumple con las Políticas de Meta y WhatsApp vigentes.
-            </p>
-
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              5. Seguridad de la información
+              4. Seguridad de la información
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
               Implementamos medidas técnicas y organizativas razonables para proteger la información personal contra
@@ -165,7 +150,7 @@ export const Privacidad: React.FC = () => {
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              6. Derechos del usuario
+              5. Derechos del usuario
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
               El usuario tiene derecho a:
@@ -180,7 +165,7 @@ export const Privacidad: React.FC = () => {
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              7. Cookies y tecnologías similares
+              6. Cookies y tecnologías similares
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
               Este sitio puede utilizar cookies técnicas y funcionales para mejorar la experiencia del usuario.
@@ -188,15 +173,15 @@ export const Privacidad: React.FC = () => {
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              8. Enlaces a sitios externos
+              7. Enlaces a sitios externos
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
-              Nuestro sitio puede contener enlaces a sitios de terceros. VoiceSchema no es responsable por las
+              Nuestro sitio puede contener enlaces a sitios de terceros. GrabArte no es responsable por las
               políticas de privacidad de dichos sitios.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              9. Cambios en esta política
+              8. Cambios en esta política
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
               Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier momento.
@@ -204,7 +189,7 @@ export const Privacidad: React.FC = () => {
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
-              10. Contacto
+              9. Contacto
             </h2>
             <p className="text-gray-700 dark:text-gray-300">
               Si tenés dudas sobre esta Política de Privacidad o el tratamiento de datos, podés contactarnos a través de:
@@ -212,7 +197,10 @@ export const Privacidad: React.FC = () => {
             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800
                           rounded-lg p-4 mt-4">
               <p className="text-gray-800 dark:text-gray-200">
-                <strong>Email:</strong> <a href="mailto:contact@voiceschema.site" className="text-blue-600 dark:text-blue-400">contact@voiceschema.site</a>
+                <strong>Email:</strong> <a href="mailto:contacto@grabarte.com" className="text-blue-600 dark:text-blue-400">contacto@grabarte.com</a>
+              </p>
+              <p className="text-gray-800 dark:text-gray-200 mt-2">
+                <strong>WhatsApp:</strong> <a href="https://wa.me/5491234567890" className="text-blue-600 dark:text-blue-400">+54 9 11 1234-5678</a>
               </p>
               <p className="text-gray-800 dark:text-gray-200 mt-2">
                 <strong>Web:</strong> <a href="https://www.voiceschema.site" className="text-blue-600 dark:text-blue-400">https://www.voiceschema.site</a>
@@ -224,7 +212,7 @@ export const Privacidad: React.FC = () => {
 
       {/* Footer */}
       <footer className="relative z-10 text-center py-6 text-sm text-gray-500 dark:text-gray-400">
-        <p>VoiceSchema © {new Date().getFullYear()} • Todos los derechos reservados</p>
+        <p>GrabArte © {new Date().getFullYear()} • Todos los derechos reservados</p>
       </footer>
     </div>
   );
