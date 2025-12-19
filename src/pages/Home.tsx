@@ -222,54 +222,14 @@ export const Home: React.FC = () => {
           className="text-center mb-12"
         >
           <h3 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-            Trabajos Realizados
+            Algunos de nuestros trabajos
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
-            Algunos de nuestros proyectos más destacados
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              id: 1,
-              title: 'Decoración Mandala',
-              description: 'Grabado detallado en MDF',
-              image: 'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=800&q=80'
-            },
-            {
-              id: 2,
-              title: 'Letras Corporativas',
-              description: 'Corte de precisión para señalética',
-              image: 'https://images.unsplash.com/photo-1572721546624-05bf65ad7679?w=800&q=80'
-            },
-            {
-              id: 3,
-              title: 'Arte Geométrico',
-              description: 'Diseños personalizados',
-              image: 'https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800&q=80'
-            },
-            {
-              id: 4,
-              title: 'Porta Retratos',
-              description: 'Productos únicos para regalar',
-              image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80'
-            },
-            {
-              id: 5,
-              title: 'Decoración Hogar',
-              description: 'Piezas decorativas exclusivas',
-              image: 'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80'
-            },
-            {
-              id: 6,
-              title: 'Rompecabezas Personalizados',
-              description: 'Corte láser de alta precisión',
-              image: 'https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?w=800&q=80'
-            }
-          ].map((proyecto, index) => (
+          {[1, 2, 3, 4, 5, 6].map((numero, index) => (
             <motion.div
-              key={proyecto.id}
+              key={numero}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -280,20 +240,12 @@ export const Home: React.FC = () => {
             >
               <div className="aspect-square relative overflow-hidden bg-gray-200 dark:bg-gray-700">
                 <img
-                  src={proyecto.image}
-                  alt={proyecto.title}
+                  src={`/gallery/trabajo-${numero}.jpg`}
+                  alt={`Trabajo ${numero} - GrabArte`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="p-4">
-                <h5 className="font-semibold text-gray-800 dark:text-gray-200">
-                  {proyecto.title}
-                </h5>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {proyecto.description}
-                </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </motion.div>
           ))}
